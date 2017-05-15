@@ -12,7 +12,7 @@ function love.load()
 	fim = false
 	posicao = {comp = love.graphics.getWidth(), altu = love.graphics.getHeight()}
 	chao.img = love.graphics.newImage('resources/chao.png')
-	jogador.img = love.graphics.newImage('resources/jogador.jpg')
+	jogador.img = love.graphics.newImage('resources/jogador.png')
 	bandeira.img = love.graphics.newImage('resources/bandeira.png')
 
 	for i = 1, #muro do
@@ -35,8 +35,8 @@ function love.load()
 
 	bandeira.x = posicao.comp*love.math.random()
 	bandeira.y = 0
-	bandeira.c = bandeira.img : getWidth()*0.1
-	bandeira.a = bandeira.img : getHeight()*0.1
+	bandeira.c = bandeira.img : getWidth()*0.5
+	bandeira.a = bandeira.img : getHeight()*0.5
 end
 
 function love.update(dt)
@@ -89,7 +89,7 @@ end
 function love.draw()
 	love.graphics.draw(chao.img)
 	love.graphics.draw(jogador.img, jogador.x, jogador.y, 0, 0.2, 0.2)
-	love.graphics.draw(bandeira.img, bandeira.x, bandeira.y, 0, 0.1, 0.1)
+	love.graphics.draw(bandeira.img, bandeira.x, bandeira.y, 0, 0.5, 0.5)
 	
 	for i = 1, #muro do
 		love.graphics.draw(muro[i].img, muro[i].x, muro[i].y, muro[i].rot, 1, 1, muro[i].c/2, muro[i].a/2)
