@@ -1,11 +1,11 @@
 jogador = {}
 bandeira = {}
-muro = {}
+monster = {}
 chao = {}
 tesouro = {}
 
-for i = 1, 10 do
-	muro[i] = {}
+for i = 1, 15 do
+	monster[i] = {}
 end
 
 function love.load()
@@ -15,15 +15,15 @@ function love.load()
 	jogador.img = love.graphics.newImage('resources/jogador.png')
 	bandeira.img = love.graphics.newImage('resources/bandeira.png')
 
-	for i = 1, #muro do
-		muro[i].x = posicao.comp * love.math.random()
-		muro[i].y = posicao.altu/1.5 * love.math.random()
-		muro[i].rot = math.rad(180)
-		muro[i].img = love.graphics.newImage('resources/muro.png')
-		muro[i].a = muro[i].img : getHeight()
-		muro[i].c = muro[i].img : getWidth()
-		muro[i].velo = 300*love.math.random()
-		muro[i].sentido = true
+	for i = 1, #monster do
+		monster[i].x = posicao.comp * love.math.random()
+		monster[i].y = posicao.altu/1.5 * love.math.random()
+		-- monster[i].rot = math.rad(180)
+		monster[i].img = love.graphics.newImage('resources/monster.png')
+		monster[i].a = monster[i].img : getHeight()*0.3
+		monster[i].c = monster[i].img : getWidth()*0.3
+		monster[i].velo = 300*love.math.random()
+		monster[i].sentido = true
 	end
 	
 
@@ -42,21 +42,21 @@ end
 function love.update(dt)
 
 	if not fim then
-		for i=1, #muro do
-			if muro[i].x < muro[i].c/2 then
-				muro[i].sentido = false
+		for i=1, #monster do
+			if monster[i].x < monster[i].c/2 then
+				monster[i].sentido = false
 			end
-			if muro[i].x > posicao.comp - muro[i].c/2 then
-				muro[i].sentido = true
+			if monster[i].x > posicao.comp - monster[i].c/2 then
+				monster[i].sentido = true
 			end
-			if muro[i].sentido then
-				muro[i].x = muro[i].x - (muro[i].velo*dt)
+			if monster[i].sentido then
+				monster[i].x = monster[i].x - (monster[i].velo*dt)
 			end
-			if not muro[i].sentido then
-				muro[i].x = muro[i].x + (muro[i].velo*dt)
+			if not monster[i].sentido then
+				monster[i].x = monster[i].x + (monster[i].velo*dt)
 			end
 
-			if collides(jogador, muro[i]) then
+			if collides(jogador, monster[i]) then
 				jogador.x = posicao.comp/2
 				jogador.y = posicao.altu - 30
 			end	
@@ -91,8 +91,8 @@ function love.draw()
 	love.graphics.draw(jogador.img, jogador.x, jogador.y, 0, 0.2, 0.2)
 	love.graphics.draw(bandeira.img, bandeira.x, bandeira.y, 0, 0.5, 0.5)
 	
-	for i = 1, #muro do
-		love.graphics.draw(muro[i].img, muro[i].x, muro[i].y, muro[i].rot, 1, 1, muro[i].c/2, muro[i].a/2)
+	for i = 1, #monster do
+		love.graphics.draw(monster[i].img, monster[i].x, monster[i].y, 0, 0.3, 0.3)
 	end
 
 	if fim then
@@ -101,5 +101,5 @@ function love.draw()
 end
 
 function collides (a, b)
-	return a.x + a.c >= b.x - b.c/2 and a.x <= b.x + b.c/2 and a.y + a.a >= b.y and a.y <= b.y + b.a
+	return a.x + a.c >= b.x and a.x <= b.x + b.c and a.y + a.a >= b.y and a.y <= b.y + b.a
 end
