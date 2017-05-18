@@ -10,14 +10,14 @@ end
 
 function love.load()
 	fim = false
-	posicao = {comp = love.graphics.getWidth(), altu = love.graphics.getHeight()}
+	tela = {comp = love.graphics.getWidth(), altu = love.graphics.getHeight()}
 	chao.img = love.graphics.newImage('resources/chao.png')
 	jogador.img = love.graphics.newImage('resources/jogador.png')
 	bandeira.img = love.graphics.newImage('resources/bandeira.png')
 
 	for i = 1, #monster do
-		monster[i].x = posicao.comp * love.math.random()
-		monster[i].y = posicao.altu/1.5 * love.math.random()
+		monster[i].x = tela.comp * love.math.random()
+		monster[i].y = tela.altu/1.5 * love.math.random()
 		-- monster[i].rot = math.rad(180)
 		monster[i].img = love.graphics.newImage('resources/monster.png')
 		monster[i].a = monster[i].img : getHeight()*0.3
@@ -27,13 +27,13 @@ function love.load()
 	end
 	
 
-	jogador.x = posicao.comp/2
+	jogador.x = tela.comp/2
 	jogador.c = jogador.img : getWidth()*0.2 -- imagem esta diminuida
-	jogador.y = posicao.altu - 30
+	jogador.y = tela.altu - 30
 	jogador.a = jogador.img : getHeight()*0.2
 	jogador.velo = 200
 
-	bandeira.x = posicao.comp*love.math.random()
+	bandeira.x = tela.comp*love.math.random()
 	bandeira.y = 0
 	bandeira.c = bandeira.img : getWidth()*0.5
 	bandeira.a = bandeira.img : getHeight()*0.5
@@ -46,7 +46,7 @@ function love.update(dt)
 			if monster[i].x < monster[i].c/2 then
 				monster[i].sentido = false
 			end
-			if monster[i].x > posicao.comp - monster[i].c/2 then
+			if monster[i].x > tela.comp - monster[i].c/2 then
 				monster[i].sentido = true
 			end
 			if monster[i].sentido then
@@ -57,8 +57,8 @@ function love.update(dt)
 			end
 
 			if collides(jogador, monster[i]) then
-				jogador.x = posicao.comp/2
-				jogador.y = posicao.altu - 30
+				jogador.x = tela.comp/2
+				jogador.y = tela.altu - 30
 			end	
 
 			if collides(jogador, bandeira) then
@@ -67,7 +67,7 @@ function love.update(dt)
 		end
 
 		if love.keyboard.isDown('d') then
-			if jogador.x < (posicao.comp - jogador.c) then
+			if jogador.x < (tela.comp - jogador.c) then
 				jogador.x = jogador.x + (jogador.velo*dt) -- andar pra direita
 			end
 		elseif love.keyboard.isDown('a') then
@@ -75,11 +75,11 @@ function love.update(dt)
 				jogador.x = jogador.x - (jogador.velo*dt) -- andar pra esquerda
 			end
 		elseif love.keyboard.isDown('w') then
-			if jogador.y > jogador.img : getHeight()*0.05 then
+			if jogador.y > 0 then
 				jogador.y = jogador.y - (jogador.velo*dt) -- andar pra cima
 			end
 		elseif love.keyboard.isDown('s') then
-			if jogador.y < (posicao.altu - jogador.c) then
+			if jogador.y < (tela.altu - jogador.a) then
 				jogador.y = jogador.y + (jogador.velo*dt) -- andar pra baixo
 			end
 		end
@@ -96,7 +96,7 @@ function love.draw()
 	end
 
 	if fim then
-		love.graphics.print('Bandeira conquistada!', posicao.comp/4, posicao.altu/2, 0, 3, 3)
+		love.graphics.print('Bandeira conquistada!', tela.comp/4, tela.altu/2, 0, 3, 3)
 	end
 end
 
