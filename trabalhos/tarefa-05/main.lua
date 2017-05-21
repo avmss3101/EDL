@@ -1,4 +1,3 @@
--- tarefa-05 (Binding Time)
 jogador = {}
 bandeira = {}
 monster = {}
@@ -70,16 +69,15 @@ end
 function love.update(dt)
 
 	if not fim then
+		for i=1, #monster do
 --[[
-Nome: palavra reservada "if"
+Nome: operador "#"
 Propriedade: semantica
 Binding time: design time
 Explicacao: foi especificado na linguagem que
-a palavra "if" abre um bloco de condicao, sendo
-verdadeiro executa o que estiver no bloco caso
-contrario passa adiante
+o operador "#" mede o comprimento de uma
+cadeia de caracteres
 ]]
-		for i=1, #monster do
 			if monster[i].x < monster[i].c/2 then
 				monster[i].sentido = false
 			end
