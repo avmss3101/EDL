@@ -51,8 +51,7 @@ aprovados = List.map nome (List.filter acimadesete turma)
 -- c) MÉDIA FINAL DOS ALUNOS DE "turma" (média de todas as médias)
 soma: Float -> Float -> Float
 soma x y = (x + y)
---h: Maybe Float
---h = List.head medias
+
 tam: Int
 tam = List.length medias
 
