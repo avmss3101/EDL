@@ -58,9 +58,32 @@ tam = List.length medias
 total: Float
 total = (List.foldl soma 0 medias)/(toFloat tam)
 
+-- d) LISTA DE ALUNOS QUE GABARITARAM A P1 ([("Maria",10,8), ...])
+gabarito: Aluno -> Bool
+gabarito (_,n,_) = (n == 10)
+turma_dez_p1: Turma
+turma_dez_p1 = List.filter gabarito turma
+
+-- e) LISTA COM OS NOMES E MEDIAS DOS ALUNOS APROVADOS ([("Maria",9), ...])
+type alias Aluno2 = (String, Float)
+media2: Aluno -> Aluno2
+media2 (nome, x, y) = (nome, (x+y)/2)
+aprovados2: List (String,Float)
+aprovados2 = List.map media2 (List.filter acimadesete turma)
+
+-- f) LISTA COM TODAS AS NOTAS DE TODAS AS PROVAS ([7,4,10,8,...])
+apenasnota: Aluno -> List Float -> List Float
+apenasnota (_,p1,p2) l  = p1 :: p2 :: l
+
+notas: List Float
+notas = List.foldr apenasnota [] turma
+
 -- É permitido usar funções auxiliares, mas não é necessário.
 -- (As soluções são pequenas.)
 
 --main = text (toString medias)
 --main = text (toString aprovados)
-main = text (toString total)
+--main = text (toString total)
+--main = text (toString turma_dez_p1)
+--main = text (toString aprovados2)
+main = text (toString notas)
